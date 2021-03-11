@@ -19,7 +19,7 @@ namespace CardGames.GameLogic
 		/// Creates a new Deck with 52 Cards. The first card
 		/// will be the top of the Deck.
 		/// </summary>
-		public Deck ()
+		public Deck ()`
 		{
 		    int i = 0;
 		    
@@ -48,14 +48,29 @@ namespace CardGames.GameLogic
             }
         }
 
-		/// <summary>
-		/// Returns all of the cards to the Deck, and shuffles their order.
-		/// All cards are turned so that they are face down.
-		/// </summary>
+/// <summary>
+/// Returns all of the cards to the Deck, and shuffles their order.
+/// All cards are turned so that they are face down.
+/// </summary>
 		public void Shuffle()
 		{
-			//TODO: implement shuffle!
+			for (int i = 0; i < 52; i++)
+			{
+				if (_cards[i].FaceUp) _cards[i].TurnOver();
+			}
+			Random rnd = new Random();
+			for (int i = 0; i < 52 - 1; i++)
+			{
+			int rndIdx = rnd.Next(52 - i);
+				Card temp = _cards[i];
+				_cards[i] = _cards[i + rndIdx];
+				_cards[i + rndIdx] = temp;
+			}
+			_topCard = 0;
 		}
+
+
+
         
 		/// <summary>
 		/// Takes a card from the top of the Deck. This will return
